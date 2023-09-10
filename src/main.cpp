@@ -1,9 +1,17 @@
-//#include<iostream>
+#include <iostream>
+#include <MASCOTA.hpp>
 int main(int argc, char const *argv[])
 {
-    int a=2;
-    int b=10;
-    int c=a+b;
-  // std::cout<<"Hola Mundo"<<std::endl;
-    return 0;
+  std::cout << "Juego de mascotas" << std::endl;
+  Mascota m1("Firulais");
+  m1.jugar();
+  m1.jugar();
+  m1.jugar();
+  std::cout
+      << m1.DecirNombre() << "tiene"
+      << m1.DecirNombre() << "de hambre";
+
+  m1.comer(5);
+
+  return 0;
 }

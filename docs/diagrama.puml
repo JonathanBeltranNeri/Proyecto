@@ -1,0 +1,71 @@
+@startuml diagrama
+
+class Tetris
+class Jugador {
+  +IniciarJuego()
+  +MoverPieza()
+  +RotarPieza()
+  +BajarRapidamente()
+  +MonitoriarTablero()
+  +GestionarVelocidad()
+  +DejarCaerPieza()
+}
+class Musica {
+  +Reproducir()
+  +Pausar()
+}
+class Bloque {
+  +Rotar()
+  +MoverseLateral()
+  +BajarRapido()
+  +DejarCaerse()
+}
+class LineaCompletada {
+  +EliminarLineaCompleta()
+}
+class Puntuacion {
+  +IncrementarPuntuacion()
+  +ObtenerPuntuacion()
+}
+class Tablero {
+  +AgregaBloque()
+  +ComprobarCeldaOcupada()
+  +EliminarLineaCompleta()
+  +ObtenerCordenada()
+  +LimpiarTablero()
+}
+class Cordenada {
+  +x()
+  +y()
+}
+class Cronometro {
+  +Iniciar()
+  +ObtenerTiempo()
+  +Reiniciar()
+  +Detener()
+}
+class B_S
+class B_T
+class B_O
+class B_I
+class B_Z
+class B_J
+
+Tetris *-- Bloque
+Tetris *-- Tablero
+Puntuacion --* Tetris
+Puntuacion *-- LineaCompletada
+Jugador o-- Bloque
+Tetris o-- Musica
+Jugador *-- Puntuacion
+Bloque *-- Cordenada
+Bloque *-- B_S
+Bloque *-- B_T
+Bloque *-- B_O
+Bloque *-- B_Z
+Bloque *-- B_J
+Bloque *-- B_I
+Tetris o-- Cronometro
+Cronometro --* Bloque
+
+@enduml
