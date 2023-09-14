@@ -21,7 +21,7 @@ void comer(int comida)
 {
     this->hambre -= comida;
 }
-std::string SecirHambre(){
+std::string DecirNombre(){
     return this->nombre;
 
 }
