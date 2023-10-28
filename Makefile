@@ -1,2 +1,7 @@
-bin/ejecutable :src/main.cpp
-	c++ src/main.cpp -o bin/ejecutable -I include
+bin/Tetris 	: src/Tetris.cpp include/*.hpp 
+	c++ src/Tetris.cpp -I include -o bin/Tetris -lcurses
+
+	
+run : bin/Tetris
+	./bin/Tetris
+	

@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 #  
 ###
+=======
+#  
+###
+>>>>>>> 78e302e (proyectoavanceparte1)
