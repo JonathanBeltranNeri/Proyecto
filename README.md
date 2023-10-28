@@ -1,7 +1,6 @@
 # Proyecto 
-#MARKDOWN
-esto es una prueba**hola**
-*hola*
-![](diagrama)
+# TETRIS 
+![](/out/docs/diagrama/teris.png)
+![](image.png)
 # diagrama
 ![](/out/docs/diagrama/diagrama.png)
