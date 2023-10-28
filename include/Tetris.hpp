@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Dibujo.hpp" // Asumiendo que este es el archivo de encabezado para Dibujo
-#include "Actualizable.hpp" // Asumiendo que este es el archivo de encabezado para Actualizable
-
+#include "Dibujo.hpp"
+#include "Actualizable.hpp"
+#include <string>
 class Tetris : public Dibujo, public Actualizable
 {
 public:
-    Tetris() : Dibujo("J") {}
-    ~Tetris() {}
+    Tetris(int x, int y, std::string forma) : Dibujo(x, y, forma) {}
 
-    void Actualizar() override {
+    void Actualizar() override
+    {
         // Implementa la lógica de actualización aquí
+        // Por ejemplo, podrías mover el bloque o hacer cualquier otra operación específica del Tetris
     }
 };

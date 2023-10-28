@@ -2,10 +2,6 @@
 #include <curses.h>
 #include <iostream>
 #include <unistd.h>
-#include <list>
-#include <Dibujo.hpp>
-#include <Actualizable.hpp>
-using namespace std;
 
 class Ventana
 {
@@ -28,34 +24,30 @@ public:
         cbreak();
         timeout(100);
         noecho();
-        keypad(stdscr,TRUE);
+        keypad(stdscr, TRUE);
     }
-    void Iniciar(){
-        this->ejecucion = true;
-    
-    }
-    void Actualizar(list<Actualizable*> actualizables){
-        for (auto &&actualizable : actualizables)
-        {
-            actualizable->Actualizar();
-        }
-    }
-    void Dibujar(list<Dibujo*> dibujos)
+    void Iniciar()
     {
-        clear();
-        for (auto &&dibujo : dibujos)
-        {
-            dibujo->Dibujar();
-        }
-        
-        refresh();
-        usleep(41000); //24 f/s
+        this->ejecucion = true;
     }
-    void Cerrar(){
+    void Actualizar()
+    {
+        this->contador = this->contador - 1;
+        if (this->contador == 0)
+        {
+            this->Cerrar();
+        }
+    }
+    void Dibujar()
+    {
+        box(stdscr, 'E', 'L');
+    }
+    void Cerrar()
+    {
         this->ejecucion = false;
     }
-    ~Ventana() {
+    ~Ventana()
+    {
         endwin();
     }
-    
 };

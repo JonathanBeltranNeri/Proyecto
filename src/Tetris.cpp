@@ -1,31 +1,51 @@
-#include <iostream>
-#include <fstream>
-#include <unistd.h>  // Para usleep
-using namespace std;
+#include <Ventana.hpp>
+#include <Dibujo.hpp>
+#include <curses.h>
+#include <unistd.h>
+int main(int argc, char const *argv[])
+{
 
-void imprimirArchivo(const string& nombreArchivo) {
-    ifstream archivo(nombreArchivo);
+    Ventana v;
+    v.Iniciar();
 
-    if (archivo.is_open()) {
-        cout << "\033[2J"; // Limpia la pantalla
-        cout << "\033[H";  // Coloca el cursor en la esquina superior izquierda
-        cout << "Contenido de " << nombreArchivo << ":\n";
-        string linea;
-        while (getline(archivo, linea)) {
-            cout << linea << endl;
+    Dibujo d1(2, 1, "B_I");
+    Dibujo d2(8, 5, "B_J");
+
+    bool ejecucion = true;
+    while (ejecucion)
+    {
+        // Ciclo de actualizacion
+        v.Actualizar();
+        if (getch() == 'q')
+        {
+            ejecucion = false;
         }
-        archivo.close();
-    } else {
-        cout << "No se pudo abrir el archivo " << nombreArchivo << "." << endl;
-    }
-}
+        if (getch() == 'd')
+        {
+            d1.AvanzarX(1);
+        }
+        if (getch() == 'a')
+        {
+            d1.RetrocederX(1);
+        }
+        if (getch() == KEY_RIGHT)
+        {
+            d2.AvanzarX(1);
+        }
+        if (getch() == KEY_LEFT)
+        {
+            d2.RetrocederX(1);
+        }
 
-int main() {
-    string archivos[] = {"data/I.txt", "data/J.txt", "data/O.txt", "data/Z.txt", "data/S.txt", "data/L.txt", "data/Z.txt"};
+        /// Ciclo de dibujo
+        clear();
+        d1.Dibujar();
+        d2.Dibujar();
 
-    for (const string& archivo : archivos) {
-        imprimirArchivo(archivo);
-        usleep(500000);  // Espera medio segundo (500,000 microsegundos)
+        v.Dibujar();
+
+        refresh();
+        usleep(41000); // 24 f/s
     }
 
     return 0;

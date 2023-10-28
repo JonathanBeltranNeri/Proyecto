@@ -1,7 +1,4 @@
-# Proyecto 
-#MARKDOWN
-esto es una prueba**hola**
-*hola*
-![](diagrama)
+# Proyecto TETRIS
+![Alt text](/docs/tetris.png)
 # diagrama
-![](/out/docs/diagrama/diagrama.png)
+![Alt text](/docs/diagrama.png)
