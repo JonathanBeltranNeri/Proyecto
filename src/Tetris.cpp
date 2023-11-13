@@ -1,51 +1,65 @@
-#include <Ventana.hpp>
-#include <Dibujo.hpp>
-#include <curses.h>
-#include <unistd.h>
-int main(int argc, char const *argv[])
-{
+#include "Ventana.hpp"
+#include "Tablero.hpp"
+#include "Dibujo.hpp"
+#include <thread>
+#include <iostream>
 
+int main()
+{
     Ventana v;
     v.Iniciar();
 
-    Dibujo d1(2, 1, "B_I");
-    Dibujo d2(8, 5, "B_J");
+    Tablero tablero;
+    Dibujo d1(2, 1, "B_I"); // Cargar la pieza B_I desde el archivo "B_I.txt"
 
     bool ejecucion = true;
+
     while (ejecucion)
     {
-        // Ciclo de actualizacion
         v.Actualizar();
-        if (getch() == 'q')
+
+        int input = getch();
+
+        if (input == 'q')
         {
             ejecucion = false;
         }
-        if (getch() == 'd')
+        else if (input == 'd')
         {
             d1.AvanzarX(1);
+            std::vector<std::vector<char>> shape;
+            for (const std::string& row : d1.getShape()) {
+                std::vector<char> tempRow(row.begin(), row.end());
+                shape.push_back(tempRow);
+            }
+            if (tablero.Colision(d1.getX(), d1.getY(), shape))
+            {
+                d1.RetrocederX(1);
+            }
         }
-        if (getch() == 'a')
+        else if (input == 'a')
         {
             d1.RetrocederX(1);
-        }
-        if (getch() == KEY_RIGHT)
-        {
-            d2.AvanzarX(1);
-        }
-        if (getch() == KEY_LEFT)
-        {
-            d2.RetrocederX(1);
+            std::vector<std::vector<char>> shape;
+            for (const std::string& row : d1.getShape()) {
+                std::vector<char> tempRow(row.begin(), row.end());
+                shape.push_back(tempRow);
+            }
+            if (tablero.Colision(d1.getX(), d1.getY(), shape))
+            {
+                d1.AvanzarX(1);
+            }
         }
 
-        /// Ciclo de dibujo
+        // Ciclo de dibujo
         clear();
-        d1.Dibujar();
-        d2.Dibujar();
 
-        v.Dibujar();
+        // Dibujar el tablero y la pieza
+        tablero.Dibujar();
+        d1.Dibujar();
 
         refresh();
-        usleep(41000); // 24 f/s
+        std::this_thread::sleep_for(std::chrono::milliseconds(41)); // 24 f/s
     }
 
     return 0;
